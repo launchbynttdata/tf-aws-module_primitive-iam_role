@@ -75,12 +75,6 @@ This example tests:
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.0 |
 
-## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.100.0 |
-
 ## Modules
 
 | Name | Source | Version |
@@ -103,13 +97,13 @@ This example tests:
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Name of the EKS cluster | `string` | n/a | yes |
-| <a name="input_service_account_name"></a> [service\_account\_name](#input\_service\_account\_name) | Name of the Kubernetes service account | `string` | n/a | yes |
+| <a name="input_custom_policy_statements"></a> [custom\_policy\_statements](#input\_custom\_policy\_statements) | Additional IAM policy statements to attach to the role | <pre>list(object({<br/>    Effect    = string<br/>    Action    = list(string)<br/>    Resource  = any<br/>    Condition = optional(map(any))<br/>  }))</pre> | `[]` | no |
+| <a name="input_enable_cluster_autoscaler"></a> [enable\_cluster\_autoscaler](#input\_enable\_cluster\_autoscaler) | Whether to enable Cluster Autoscaler permissions | `bool` | `false` | no |
+| <a name="input_enable_load_balancer_controller"></a> [enable\_load\_balancer\_controller](#input\_enable\_load\_balancer\_controller) | Whether to enable AWS Load Balancer Controller permissions | `bool` | `false` | no |
+| <a name="input_environment"></a> [environment](#input\_environment) | Environment name (e.g., dev, staging, prod) | `string` | `"dev"` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | Kubernetes namespace for the service account | `string` | `"default"` | no |
 | <a name="input_oidc_provider_url"></a> [oidc\_provider\_url](#input\_oidc\_provider\_url) | OIDC provider URL for the EKS cluster (without https://) | `string` | n/a | yes |
-| <a name="input_environment"></a> [environment](#input\_environment) | Environment name (e.g., dev, staging, prod) | `string` | `"dev"` | no |
-| <a name="input_enable_load_balancer_controller"></a> [enable\_load\_balancer\_controller](#input\_enable\_load\_balancer\_controller) | Whether to enable AWS Load Balancer Controller permissions | `bool` | `false` | no |
-| <a name="input_enable_cluster_autoscaler"></a> [enable\_cluster\_autoscaler](#input\_enable\_cluster\_autoscaler) | Whether to enable Cluster Autoscaler permissions | `bool` | `false` | no |
-| <a name="input_custom_policy_statements"></a> [custom\_policy\_statements](#input\_custom\_policy\_statements) | Additional IAM policy statements to attach to the role | <pre>list(object({<br/>    Effect    = string<br/>    Action    = list(string)<br/>    Resource  = any<br/>    Condition = optional(map(any))<br/>  }))</pre> | `[]` | no |
+| <a name="input_service_account_name"></a> [service\_account\_name](#input\_service\_account\_name) | Name of the Kubernetes service account | `string` | n/a | yes |
 
 ## Outputs
 
@@ -120,7 +114,7 @@ This example tests:
 | <a name="output_kubernetes_service_account_annotation"></a> [kubernetes\_service\_account\_annotation](#output\_kubernetes\_service\_account\_annotation) | Annotation to add to the Kubernetes service account |
 | <a name="output_kubernetes_service_account_yaml"></a> [kubernetes\_service\_account\_yaml](#output\_kubernetes\_service\_account\_yaml) | YAML manifest for the Kubernetes service account |
 | <a name="output_role_arn"></a> [role\_arn](#output\_role\_arn) | The ARN of the IAM role |
-| <a name="output_role_name"></a> [role\_name](#output\_role\_name) | The name of the IAM role |
 | <a name="output_role_id"></a> [role\_id](#output\_role\_id) | The unique ID of the IAM role |
+| <a name="output_role_name"></a> [role\_name](#output\_role\_name) | The name of the IAM role |
 | <a name="output_role_tags"></a> [role\_tags](#output\_role\_tags) | The tags assigned to the IAM role |
 <!-- END_TF_DOCS -->
