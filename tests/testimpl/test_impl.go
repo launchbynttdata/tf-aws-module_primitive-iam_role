@@ -39,9 +39,9 @@ func TestComposableCompleteReadOnly(t *testing.T, ctx types.TestContext) {
 func runIAMRoleChecks(t *testing.T, ctx types.TestContext) {
 	iamClient := GetAWSIAMClient(t)
 
-	roleArn := terraform.Output(t, ctx.TerratestTerraformOptions(), "role_arn")
-	roleName := terraform.Output(t, ctx.TerratestTerraformOptions(), "role_name")
-	roleId := terraform.Output(t, ctx.TerratestTerraformOptions(), "role_id")
+	roleArn := terraform.OutputContext(t, context.Background(), ctx.TerratestTerraformOptions(), "role_arn")
+	roleName := terraform.OutputContext(t, context.Background(), ctx.TerratestTerraformOptions(), "role_name")
+	roleId := terraform.OutputContext(t, context.Background(), ctx.TerratestTerraformOptions(), "role_id")
 
 	t.Run("TestIAMRoleExists", func(t *testing.T) {
 		testIAMRoleExists(t, iamClient, roleArn, roleName, roleId)
@@ -61,7 +61,7 @@ func runIAMRoleChecks(t *testing.T, ctx types.TestContext) {
 
 	t.Run("TestIAMRoleTags", func(t *testing.T) {
 		var roleTags map[string]interface{}
-		terraform.OutputStruct(t, ctx.TerratestTerraformOptions(), "role_tags", &roleTags)
+		terraform.OutputStructContext(t, context.Background(), ctx.TerratestTerraformOptions(), "role_tags", &roleTags)
 		roleTagsJSON, _ := json.Marshal(roleTags)
 		testIAMRoleTags(t, iamClient, roleName, string(roleTagsJSON))
 	})
